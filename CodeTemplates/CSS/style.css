@@ -1,0 +1,12 @@
+﻿body {
+    margin: 100px 25%;
+}
+
+.lawnGreen {
+    color: lawngreen; /* Change the text color to red */
+}
+
+.jostFont {
+    font-family: 'Jost', sans-serif;
+}
+
