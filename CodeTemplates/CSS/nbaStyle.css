@@ -1,0 +1,19 @@
+﻿.head {
+    font-family: 'Cantarell', sans-serif;
+}
+
+body {
+    font-family: 'Fjalla One', sans-serif;
+}
+
+#landing {
+    display: flex;
+}
+
+#left {
+    width: 40vw;
+}
+
+#right {
+    width: 60vw;
+}
