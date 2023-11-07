@@ -1,0 +1,40 @@
+﻿body {
+    background-color: black;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+h1 {
+    text-align: center;
+    z-index: 1;
+    color: white;
+    font-size: 75px;
+    padding-top: 15vh;
+}
+h3 {
+    text-align: center;
+    z-index: 1;
+    color: yellow;
+    font-size: 22px;
+    padding-bottom: 200px;
+}
+p {
+    text-align: center;
+    z-index: 1;
+    color: lightgray;
+}
