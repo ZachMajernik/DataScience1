@@ -1,9 +1,9 @@
 ﻿.container {
-   /* display: flex;
+    display: flex;
     justify-content: space-between;
     flex-direction:row;
     width:100%;
-    height:100%;*/
+    height:100%;
 }
 
 .bars span {
@@ -46,9 +46,10 @@
     padding: 0px;
 }
 
-.left{
+.left {
     width: 100vw;
     transition: width 2s;
+    display: flex-end;
 }
 .right {
     width: 100vw;
