@@ -1,22 +1,20 @@
-// JavaScript source code
+const imageContainer = d3.select("#image-container");
+const zoomableImage = d3.select("#zoomable-image");
 
-var body = d3.select("body");
-var body = d3.select("body");
+const zoom = d3.zoom()
+    .scaleExtent([1, 4]) // Set the minimum and maximum scale levels
+    .on("zoom", zoomed);
 
-// Create an SVG container
-var svg = body.append("svg")
-    .attr("width", 500)
-    .attr("height", 500);
+imageContainer.call(zoom);
 
-// Append an image to the SVG container
-var image = svg.append("image")
-    .attr("xlink:href", "image.jpg") // Set the path to your SVG image
-    .attr("width", 400)
-    .attr("height", 300)
-    .attr("x", 100)  // Set the x-coordinate
-    .attr("y", 50);  // Set the y-coordinate
+function zoomed(event) {
+    const { transform } = event;
+    zoomableImage.style("transform", transform);
+}
 
-d3.select(window).on("scroll", function () {
-    var scrollY = window.scrollY || window.pageYOffset;
-    image.attr("y", 50 + scrollY); // Update the y-coordinate based on scroll position
+// Handle scroll events for zooming
+window.addEventListener("scroll", function () {
+    const scrollTop = window.scrollY;
+    const scale = 1 + scrollTop * 0.001; // Adjust the scaling factor as needed
+    zoomableImage.transition().duration(100).call(zoom.scaleTo, scale);
 });
