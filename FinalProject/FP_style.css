@@ -1,12 +1,20 @@
 ﻿body {
     margin: 20px;
     background-color: darkslategray;
+    display: flex;
 }
-
-.content {
-    z-index: -1;
+#animBackground {
+    z-index:1;
+    position:absolute;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    background: red;
+    width: 100vw;
+    height: 300vh;
+    transition: width 3s;
 }
-
 h1, h3 {
     font-family: 'Bubblegum Sans', sans-serif;
     color: black;
@@ -26,7 +34,7 @@ div {
 
 .head {
     padding: 0px;
-    background-color: lightgreen;
+    background-color: tomato;
     padding-top: 5px;
     padding-bottom: 5px;
     z-index: -1;
@@ -35,18 +43,11 @@ div {
 a {
     color: white;
 }
-
-#animBackground {
-    margin: 0;
-    padding: 0;
-    top: 0;
-    left: 0;
-    background: red;
-    width: 100vw;
-    height: 100vh;
-    transition: width 4s;
+#cycleText {
+    padding: 10px;
+    color: white;
+    font-size: 24px;
 }
-
 @media(min-width: 600px) {
     img {
         width: 45%;
@@ -59,4 +60,7 @@ a {
         width: 98%;
         padding: 5px;
     }
+}
+.rectangle:hover {
+    fill: yellow;
 }

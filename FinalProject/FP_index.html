@@ -2,9 +2,10 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Demo</title>
+    <meta charset="utf-8" />
+    <title>Final Project</title>
 
-    <link rel="stylesheet" type="text/css" href="DemoStyle.css">
+    <link rel="stylesheet" type="text/css" href="FP_style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +16,7 @@
 <body>
     <div id="animBackground"></div>
 
-    <div class="content">
+    <div>
         <div class="head">
             <h1>My Question</h1>
             <h3>
@@ -32,15 +33,24 @@
 
         <div class="head">
             <h1>My Data</h1>
+            <h3 id="cycleText">--Cycling restaurant names--</h3>
         </div>
 
         <div>
-            <p>
-                I used a dataset made by <a href="https://www.openintro.org/data/index.php?data=fastfood">openintro.org</a> that contains almost the entire menue
-                (not including some sides like fries) from eight different fast food chains:<br />
-                Taco Bell, Subway, Burger King, Mcdonalds, Arbys, Sonic, Dairy Queen, Chick Fil-A.<br />
-                I also cross-referenced some of the items from the dataset with the nutrition facts from that restaurant's official website to confirm legitamacy.
-            </p>
+            <div>
+                <p>
+                    There are Thousands upon thousands of fast food restaurants in just the U.S. alone!
+                    With all these choices it can be very hard to figure out where to eat and even harder which ones have the best options for you.
+                    The graph below shows how many there are (in the U.S.) of each restaurant we will be looking at.
+                </p>
+                <p>
+                    I used a dataset made by <a href="https://www.openintro.org/data/index.php?data=fastfood" target="_blank">openintro.org</a> that contains almost the entire menue
+                    (not including some sides like fries) from eight different fast food chains:<br />
+                    Taco Bell, Subway, Burger King, Mcdonalds, Arby's, Sonic, Dairy Queen, Chick Fil-A.<br />
+                    I also cross-referenced some of the items from the dataset with the nutrition facts from that restaurant's official website to confirm legitamacy.
+                </p>
+            </div>
+            <div id="d3-container"></div>
         </div>
 
         <div class="head">
@@ -96,6 +106,7 @@
         </div>
     </div>
 
-    <script src="DemoScript.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="FP_script.js"></script>
 </body>
 </html>
