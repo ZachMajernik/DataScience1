@@ -21,8 +21,12 @@ h1, h3 {
 }
 
 p {
+    padding-bottom:10px;
+    margin-right: 20%;
+    margin-left: 20%;
     font-size: 15px;
     font-family: 'Nunito', sans-serif;
+    line-height: 1.5;
 }
 
 div {
@@ -33,6 +37,8 @@ div {
 }
 
 .head {
+    margin-right: 10%;
+    margin-left: 10%;
     padding: 0px;
     background-color: tomato;
     padding-top: 5px;
