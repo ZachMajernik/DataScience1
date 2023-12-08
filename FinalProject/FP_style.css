@@ -80,6 +80,9 @@ a {
     position: relative;
     display: flex;
     justify-content: center;
+    background-color: whitesmoke;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 

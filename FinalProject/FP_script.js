@@ -108,6 +108,7 @@ const bars = svg.selectAll(".bar")
 // Add tooltips
 const tooltip = d3.select("#d3-container")
     .append("div")
+    .attr("class", "tooltip")
     .style("position", "absolute")
     .style("visibility", "hidden")
     .style("background-color", "#f4f4f4")
@@ -115,31 +116,30 @@ const tooltip = d3.select("#d3-container")
     .style("border", "1px solid #ccc")
     .style("z-index", "1");  // Ensures the tooltip is on top
 
-
-const tooltipOverlay = d3.select("#d3-container")
-    .append("div")
-    .style("position", "absolute")
-    .style("width", "100%")
-    .style("height", "100%")
-    .style("visibility", "hidden")
-    .style("z-index", "2");  // Higher z-index than the bars
-
-
 bars.on("mouseover", (d, i, nodes) => {
-    const currentBar = d3.select(nodes[i]);
-    const barPosition = currentBar.node().getBoundingClientRect();
+    const mouseEvent = d3.event;
+    const mouseX = mouseEvent.pageX;
+    const mouseY = mouseEvent.pageY;
 
+    const tooltipWidth = tooltip.node().offsetWidth;
+    const tooltipHeight = tooltip.node().offsetHeight;
+
+    const leftPos = Math.min(
+        window.innerWidth - tooltipWidth,
+        mouseX - tooltipWidth / 2
+    );
+
+    const topPos = Math.min(
+        window.innerHeight - tooltipHeight,
+        mouseY - tooltipHeight - 10
+    );
 
     tooltip.text(`${d.full}, ${d.num}`)
         .style("visibility", "visible")
-        .style("top", `${barPosition.top - 220}px`)
-        .style("left", `${barPosition.left + barPosition.width / 2}px`)
+        .style("left", `${leftPos - 200}px`)
+        .style("top", `${topPos - 650}px`)
         .style("transform", "translateX(-50%)"); // Center tooltip over the bar
-
-
-    tooltipOverlay.style("visibility", "visible");
 })
     .on("mouseout", () => {
         tooltip.style("visibility", "hidden");
-        tooltipOverlay.style("visibility", "hidden");
     });
