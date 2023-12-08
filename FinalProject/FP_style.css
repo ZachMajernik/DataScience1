@@ -1,11 +1,11 @@
 ﻿body {
     margin: 20px;
     background-color: darkslategray;
-    display: flex;
 }
+
 #animBackground {
-    z-index:1;
-    position:absolute;
+    z-index: 1;
+    position: absolute;
     margin: 0;
     padding: 0;
     top: 0;
@@ -15,26 +15,30 @@
     height: 300vh;
     transition: width 3s;
 }
+
 h1, h3 {
     font-family: 'Bubblegum Sans', sans-serif;
     color: black;
 }
 
+
 p {
-    padding-bottom:10px;
+    padding-bottom: 10px;
     margin-right: 20%;
     margin-left: 20%;
     font-size: 15px;
     font-family: 'Nunito', sans-serif;
     line-height: 1.5;
+    color: white;
 }
+
 
 div {
     padding-top: 10px;
     padding-bottom: 10px;
-    color: white;
     text-align: center;
 }
+
 
 .head {
     margin-right: 10%;
@@ -46,14 +50,17 @@ div {
     z-index: -1;
 }
 
+
 a {
     color: white;
 }
+
 #cycleText {
     padding: 10px;
     color: white;
     font-size: 24px;
 }
+
 @media(min-width: 600px) {
     img {
         width: 45%;
@@ -61,12 +68,30 @@ a {
     }
 }
 
+
 @media(max-width: 450px) {
     img {
         width: 98%;
         padding: 5px;
     }
 }
-.rectangle:hover {
-    fill: yellow;
+
+#d3-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+
+.bar {
+    fill: rgb(231, 43, 43);
+}
+
+
+.axis-text {
+    font-size: 12px;
+}
+
+.bar:hover {
+    fill: rgb(229, 152, 149);
 }

@@ -25,60 +25,121 @@ function cycleText() {
 setInterval(cycleText, 400);
 
 const data = [
-    { name: "mcd", num: 13430 },
-    { name: "bk", num: 6960 },
-    { name: "cfa", num: 2980 },
-    { name: "dq", num: 4300 },
-    { name: "sbw", num: 20570 },
-    { name: "snc", num: 3550 },
-    { name: "arb", num: 3340 },
-    { name: "tb", num: 7200 }];
+    { name: "mcd", num: 13430, full: "McDonalds" },
+    { name: "bk", num: 6960, full: "Burger King" },
+    { name: "cfa", num: 2980, full: "Chick-Fil-A" },
+    { name: "dq", num: 4300, full: "Dairy Queen" },
+    { name: "sbw", num: 20570, full: "Subway" },
+    { name: "snc", num: 3550, full: "Sonic" },
+    { name: "arb", num: 3340, full: "Arby\'s" },
+    { name: "tb", num: 7200, full: "Taco Bell" }];
 
-const width = 800;
-const height = 400;
-const margin = { top: 50, bottom: 50, left: 50, right: 50 };
 
-const svg = d3.select('#d3-container')
-    .append('svg')
-    .attr('height', height - margin.top - margin.bottom)
-    .attr('width', width - margin.left - margin.right)
-    .attr('viewBox', [0, 0, width, height]);
+// Set up SVG container and scales
+const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+const width = 600 - margin.left - margin.right;
+const height = 300 - margin.top - margin.bottom;
 
-const x = d3.scaleBand()
-    .domain(d3.range(data.length))
-    .range([margin.left, width - margin.right])
+
+const svg = d3.select("#d3-container")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+
+// Create X and Y scales
+const xScale = d3.scaleBand()
+    .domain(data.map(d => d.name))
+    .range([0, width])
     .padding(0.1);
 
-const y = d3.scaleLinear()
-    .domain([0, 21000])
-    .range([height - margin.bottom, margin.top]);
 
-const tooltip = svg.append("text")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+const yScale = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.num)])
+    .range([height, 0]);
+
+
+// Add X and Y axes
+const xAxis = d3.axisBottom(xScale);
+const yAxis = d3.axisLeft(yScale);
+
 
 svg.append("g")
-    .attr('fill', 'red')
-    .selectAll('rect')
-    .data(data.sort((a, b) => d3.descending(a.num, b.num)))
-    .join('rect')
-    .attr('x', (d, i) => x(i))
-    .attr('y', (d) => y(d.num))
-    .attr('height', d => y(0) - y(d.num))
-    .attr('width', x.bandwidth())
-    .attr('class', 'rectangle');
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0, ${height})`)
+    .call(xAxis);
 
-function xAxis(g) {
-    g.attr('transform', `translate(0, ${height - margin.bottom})`)
-        .call(d3.axisBottom(x).tickFormat(i => data[i].name))
-        .attr('font-size', '20px');
-}
-function yAxis(g) {
-    g.attr('transform', `translate(${margin.left},0)`)
-        .call(d3.axisLeft(y).ticks(null, data.format))
-        .attr('font-size', '20px');
-}
 
-svg.append('g').call(yAxis);
-svg.append('g').call(xAxis);
-svg.node();
+svg.append("g")
+    .attr("class", "y-axis")
+    .call(yAxis);
+
+
+svg.append("text")
+    .attr("class", "axis-text")
+    .attr("text-anchor", "middle")
+    .attr("transform", `translate(${width / 2},${height + margin.bottom - 5})`)
+    .text("Restaurants");
+
+
+svg.append("text")
+    .attr("class", "axis-text")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", margin.left - 110)
+    .text("Aproximate Number in the U.S.");
+
+
+// Create and render bars
+const bars = svg.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", d => xScale(d.name))
+    .attr("width", xScale.bandwidth())
+    .attr("y", d => yScale(d.num))
+    .attr("height", d => height - yScale(d.num));
+
+
+// Add tooltips
+const tooltip = d3.select("#d3-container")
+    .append("div")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "#f4f4f4")
+    .style("padding", "10px")
+    .style("border", "1px solid #ccc")
+    .style("z-index", "1");  // Ensures the tooltip is on top
+
+
+const tooltipOverlay = d3.select("#d3-container")
+    .append("div")
+    .style("position", "absolute")
+    .style("width", "100%")
+    .style("height", "100%")
+    .style("visibility", "hidden")
+    .style("z-index", "2");  // Higher z-index than the bars
+
+
+bars.on("mouseover", (d, i, nodes) => {
+    const currentBar = d3.select(nodes[i]);
+    const barPosition = currentBar.node().getBoundingClientRect();
+
+
+    tooltip.text(`${d.full}, ${d.num}`)
+        .style("visibility", "visible")
+        .style("top", `${barPosition.top - 220}px`)
+        .style("left", `${barPosition.left + barPosition.width / 2}px`)
+        .style("transform", "translateX(-50%)"); // Center tooltip over the bar
+
+
+    tooltipOverlay.style("visibility", "visible");
+})
+    .on("mouseout", () => {
+        tooltip.style("visibility", "hidden");
+        tooltipOverlay.style("visibility", "hidden");
+    });
