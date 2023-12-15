@@ -116,30 +116,30 @@ const tooltip = d3.select("#d3-container")
     .style("border", "1px solid #ccc")
     .style("z-index", "1");  // Ensures the tooltip is on top
 
-bars.on("mouseover", (d, i, nodes) => {
-    const mouseEvent = d3.event;
-    const mouseX = mouseEvent.pageX;
-    const mouseY = mouseEvent.pageY;
-
-    const tooltipWidth = tooltip.node().offsetWidth;
-    const tooltipHeight = tooltip.node().offsetHeight;
-
-    const leftPos = Math.min(
-        window.innerWidth - tooltipWidth,
-        mouseX - tooltipWidth / 2
-    );
-
-    const topPos = Math.min(
-        window.innerHeight - tooltipHeight,
-        mouseY - tooltipHeight - 10
-    );
-
-    tooltip.text(`${d.full}, ${d.num}`)
-        .style("visibility", "visible")
-        .style("left", `${leftPos - 200}px`)
-        .style("top", `${topPos - 650}px`)
-        .style("transform", "translateX(-50%)"); // Center tooltip over the bar
-})
-    .on("mouseout", () => {
-        tooltip.style("visibility", "hidden");
-    });
+    bars.on("mouseover", (d, i, nodes) => {
+        const mouseEvent = d3.event;
+        const mouseX = mouseEvent.pageX;
+        const mouseY = mouseEvent.pageY;
+    
+        const tooltipWidth = tooltip.node().offsetWidth;
+        const tooltipHeight = tooltip.node().offsetHeight;
+    
+        const leftPos = Math.min(
+            window.innerWidth - tooltipWidth,
+            mouseX + 10  // Adjusted to add some padding to the right
+        );
+    
+        const topPos = Math.min(
+            mouseY - tooltipHeight - 10, // Adjusted to add some padding to the top
+            margin.top // Fixed to the top of the chart
+        );
+    
+        tooltip.text(`${d.full}, ${d.num}`)
+            .style("visibility", "visible")
+            .style("left", `${leftPos} - 100px`)
+            .style("top", `${topPos}px`)
+            .style("transform", "translateX(-50%)"); // Center tooltip over the bar
+    })
+        .on("mouseout", () => {
+            tooltip.style("visibility", "hidden");
+        });
